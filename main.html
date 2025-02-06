@@ -1,25 +1,70 @@
 <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Table Creation</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
 
-<html>
+    <button onclick="createTable()">Create the table</button>
+    <table id="myTable"></table>
 
-	<head>
-		<meta charset=utf-8 /> 
-		<title>Create a table</title> 
-		<style type="text/css"> 
-			body {margin: 30px;} 	
-		</style>
-		<link rel="stylesheet" href="styles.css">
-	</head>
+    <script>
+        function createTable() {
+            // Get user input for rows and columns
+            let rows = prompt("Input number of rows");
+            let columns = prompt("Input number of columns");
 
-	<body>
-		<table id="myTable" border="1"> 
-		</table>
-		<form> 
-			<input type="button" onclick="createTable()" value="Create the table"> 
-		</form>
-		<script type="text/javascript" src="./script.js">
-	</script>
+            // Validate user input
+            rows = parseInt(rows);
+            columns = parseInt(columns);
 
-	</body>
+            // Check if the inputs are valid (numeric, positive, non-zero)
+            if (isNaN(rows) || isNaN(columns) || rows <= 0 || columns <= 0) {
+                alert("Invalid input. Please enter positive numbers greater than 0.");
+                return; // Exit the function if invalid input
+            }
 
+            // Get the table element
+            let table = document.getElementById("myTable");
+
+            // Clear any previous table content
+            table.innerHTML = "";
+
+            // Generate the table
+            for (let i = 0; i < rows; i++) {
+                // Create a new row
+                let row = document.createElement("tr");
+
+                // Generate columns for the current row
+                for (let j = 0; j < columns; j++) {
+                    // Create a new cell
+                    let cell = document.createElement("td");
+
+                    // Set the cell's text content
+                    cell.textContent = `Row-${i} Column-${j}`;
+
+                    // Append the cell to the row
+                    row.appendChild(cell);
+                }
+
+                // Append the row to the table
+                table.appendChild(row);
+            }
+        }
+    </script>
+
+</body>
 </html>
